@@ -11,5 +11,5 @@ python manage.py collectstatic --no-input
 # Apply database schema migrations
 python manage.py migrate
 
-# Seed catalog if needed
-python manage.py seed_products
+# Seed catalog & dynamic store settings
+python manage.py seed_db

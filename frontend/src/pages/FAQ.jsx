@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useStore } from '../context/StoreContext';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const { siteName, freeShippingThreshold } = useStore();
 
   const faqs = [
     {
@@ -15,7 +17,7 @@ const FAQ = () => {
         },
         {
           q: 'Do you offer free shipping?',
-          a: 'Yes, all orders exceeding $100 automatically receive complimentary worldwide priority shipping. For orders below $100, standard flat rate shipping is $10.',
+          a: `Yes, all orders exceeding $${freeShippingThreshold} automatically receive complimentary worldwide priority shipping. For orders below $${freeShippingThreshold}, standard flat rate shipping is $10.`,
         },
         {
           q: 'How do I monitor the live tracking status of my package?',
@@ -28,7 +30,7 @@ const FAQ = () => {
       items: [
         {
           q: 'Is Cash on Delivery (COD) supported?',
-          a: 'Yes! ShopNex proudly supports Cash on Delivery across eligible locations. You can inspect your parcel and pay the verified courier upon arrival.',
+          a: `Yes! ${siteName} proudly supports Cash on Delivery across eligible locations. You can inspect your parcel and pay the verified courier upon arrival.`,
         },
         {
           q: 'How are payment transactions secured?',
@@ -44,7 +46,7 @@ const FAQ = () => {
       category: 'Returns, Exchanges & Warranty',
       items: [
         {
-          q: 'What is the ShopNex return policy?',
+          q: `What is the ${siteName} return policy?`,
           a: 'We provide a 30-day trial period from the date of package delivery. If you are not satisfied, submit a return request through your dashboard for a full refund.',
         },
         {

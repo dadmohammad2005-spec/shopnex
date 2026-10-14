@@ -1,7 +1,9 @@
 import React from 'react';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
+import { useStore } from '../../context/StoreContext';
 
 const Testimonials = () => {
+  const { siteName } = useStore();
   const reviews = [
     {
       id: 1,
@@ -40,7 +42,7 @@ const Testimonials = () => {
             Loved by Connoisseurs Worldwide
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-2">
-            Over 40,000 international customers trust ShopNex for authenticity, quality, and concierge service.
+            Over 40,000 international customers trust {siteName} for authenticity, quality, and concierge service.
           </p>
         </div>
 

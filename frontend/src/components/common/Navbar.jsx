@@ -19,6 +19,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useStore } from '../../context/StoreContext';
 import { productService } from '../../services/api';
 
 const Navbar = () => {
@@ -28,6 +29,7 @@ const Navbar = () => {
   const { totalItems } = useCart();
   const { wishlistCount } = useWishlist();
   const { isDark, toggleTheme } = useTheme();
+  const { siteName, brandParts, announcementText, address } = useStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -93,9 +95,7 @@ const Navbar = () => {
       <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 text-center font-medium border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span>
-            Complimentary Worldwide Shipping over $100 • Use code <span className="font-bold text-amber-300">WELCOME10</span> for 10% off
-          </span>
+          <span>{announcementText}</span>
         </div>
       </div>
 
@@ -105,14 +105,14 @@ const Navbar = () => {
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-md border border-slate-700 bg-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="ShopNex Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt={`${siteName} Logo`} className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
-                Shop<span className="text-brand-400">Nex</span>
+                {brandParts.first}<span className="text-brand-400">{brandParts.second}</span>
               </span>
               <span className="text-[9px] uppercase tracking-widest text-slate-400 font-bold -mt-0.5">
-                Quetta, Balochistan
+                {address}
               </span>
             </div>
           </Link>

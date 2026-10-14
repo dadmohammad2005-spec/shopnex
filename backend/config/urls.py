@@ -3,12 +3,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from products.views import CategoryListView
-from core.views import ApiRootView
+from core.views import ApiRootView, SiteSettingView
 
 urlpatterns = [
     path('', ApiRootView.as_view(), name='root_landing'),
     path('api/', ApiRootView.as_view(), name='api_overview'),
     path('admin/', admin.site.urls),
+    path('api/settings/', SiteSettingView.as_view(), name='api_settings'),
     path('api/accounts/', include('accounts.urls')),
     path('api/categories/', CategoryListView.as_view(), name='api_categories'),
     path('api/products/', include('products.urls')),

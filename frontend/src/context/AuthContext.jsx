@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authService } from '../services/api';
 import { useToast } from './ToastContext';
+import { useStore } from './StoreContext';
 
 const AuthContext = createContext(null);
 
@@ -9,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
+  const { siteName } = useStore();
 
   const initAuth = useCallback(async () => {
     try {
@@ -58,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       const response = await authService.register(userData);
       setUser(response.data.user);
       setIsAuthenticated(true);
-      showToast('Registration successful! Welcome to ShopNex.', 'success');
+      showToast(`Registration successful! Welcome to ${siteName}.`, 'success');
       return { success: true, user: response.data.user };
     } catch (error) {
       const errors = error.response?.data || {};

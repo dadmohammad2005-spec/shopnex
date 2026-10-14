@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env file
 load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'shopnex-insecure-development-secret-key-2026')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'shall-shoop-insecure-development-secret-key-2026')
 
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ('true', '1', 'yes')
 
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    # ShopNex applications
+    # shall_shoop applications
     'accounts',
     'products',
     'cart',

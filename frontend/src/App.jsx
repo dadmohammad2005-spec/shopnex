@@ -22,6 +22,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { StoreProvider } from './context/StoreContext';
 
 // Helper to scroll to top on page navigation
 function ScrollToTop() {
@@ -36,11 +37,12 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <AuthProvider>
-          <CartProvider>
-            <WishlistProvider>
+    <StoreProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
               <Router>
                 <ScrollToTop />
                 <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 selection:bg-brand-500 selection:text-white transition-colors duration-200">
@@ -74,6 +76,7 @@ function App() {
       </AuthProvider>
     </ToastProvider>
     </ThemeProvider>
+    </StoreProvider>
   );
 }
 

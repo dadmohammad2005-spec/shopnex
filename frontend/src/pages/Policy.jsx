@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { ShieldCheck, Truck, RotateCcw, FileText } from 'lucide-react';
+import { useStore } from '../context/StoreContext';
 
 const Policy = ({ type = 'privacy' }) => {
   const location = useLocation();
+  const { siteName, copyright, freeShippingThreshold } = useStore();
 
   let effectiveType = type;
   if (location.pathname.includes('privacy')) effectiveType = 'privacy';
@@ -38,7 +40,7 @@ const Policy = ({ type = 'privacy' }) => {
       sections: [
         {
           heading: '1. Acceptance of Terms',
-          body: 'By browsing and purchasing products from ShopNex, you agree to comply with our international commercial terms, catalog pricing policies, and operational terms.',
+          body: `By browsing and purchasing products from ${siteName}, you agree to comply with our international commercial terms, catalog pricing policies, and operational terms.`,
         },
         {
           heading: '2. Product Pricing & Accuracy',
@@ -46,7 +48,7 @@ const Policy = ({ type = 'privacy' }) => {
         },
         {
           heading: '3. Intellectual Property',
-          body: 'All trademarks, logos, photographs, and UI components displayed on ShopNex are the proprietary intellectual property of ShopNex International Inc.',
+          body: `All trademarks, logos, photographs, and UI components displayed on ${siteName} are the proprietary intellectual property of ${copyright}.`,
         },
       ],
     },
@@ -61,7 +63,7 @@ const Policy = ({ type = 'privacy' }) => {
         },
         {
           heading: '2. Free Shipping Threshold',
-          body: 'Orders with a merchandise subtotal of $100.00 or greater receive complimentary worldwide priority shipping. For orders below $100.00, flat rate shipping of $10.00 applies.',
+          body: `Orders with a merchandise subtotal of $${freeShippingThreshold}.00 or greater receive complimentary worldwide priority shipping. For orders below $${freeShippingThreshold}.00, flat rate shipping of $10.00 applies.`,
         },
         {
           heading: '3. Live Tracking & Customs',
@@ -76,7 +78,7 @@ const Policy = ({ type = 'privacy' }) => {
       sections: [
         {
           heading: '1. 30-Day Hassle-Free Returns',
-          body: 'If you are not thoroughly delighted with your ShopNex purchase, you may initiate a return within 30 days of receiving your package.',
+          body: `If you are not thoroughly delighted with your ${siteName} purchase, you may initiate a return within 30 days of receiving your package.`,
         },
         {
           heading: '2. Condition of Returned Merchandise',
@@ -118,7 +120,7 @@ const Policy = ({ type = 'privacy' }) => {
           </div>
 
           <div className="mt-12 pt-6 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-            <span>ShopNex Legal Compliance Team</span>
+            <span>{siteName} Legal Compliance Team</span>
             <Link to="/contact" className="font-bold text-brand-400 hover:underline">
               Contact Concierge
             </Link>

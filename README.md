@@ -1,6 +1,6 @@
-# SHOPNEX — Professional Full-Stack E-Commerce Platform
+# shall_shoop — Professional Full-Stack E-Commerce Platform
 
-ShopNex is an international, enterprise-grade, full-stack e-commerce solution engineered with a decoupled architecture: a **Django REST Framework** backend and a high-performance **React.js + Vite** frontend styled with **Tailwind CSS**.
+shall_shoop is an international, enterprise-grade, full-stack e-commerce solution engineered with a decoupled architecture: a **Django REST Framework** backend and a high-performance **React.js + Vite** frontend styled with **Tailwind CSS**. It features a 100% dynamic store branding & settings engine allowing site names, logos, slogans, contact info, and policies to be managed centrally via API and Django Admin.
 
 ---
 
@@ -9,7 +9,7 @@ ShopNex is an international, enterprise-grade, full-stack e-commerce solution en
 The repository enforces complete separation between the backend service and the client application:
 
 ```
-ShopNex/
+shall_shoop/
 ├── backend/
 │   ├── config/              # Core Django project configuration & settings
 │   ├── accounts/            # Custom User model, session auth, profiles
@@ -72,11 +72,16 @@ ShopNex/
 
 ## 3. Key Features Implemented
 
+### Dynamic Branding & Store Configuration
+- **Dynamic Site Settings Engine**: Store name (`shall_shoop`), tagline, contact emails, location, announcement banner, and currency are loaded dynamically from `/api/settings/` and managed in Django Admin.
+- **Brand Part Splitter**: Automatically decomposes brand names into two-tone typography (e.g. `shall_shoop` into `shall` + `_shoop`) everywhere across the application.
+- **Dynamic Meta & Titles**: Automatically reflects the store name in document title and policy notices.
+
 ### Customer Frontend Experience
 - **Homepage**: Luxury promotional hero banner, shop by category cards, featured innovations, countdown flash deals section, customer favorites (best sellers), new arrivals, verified testimonials, and VIP newsletter subscription.
 - **Product Listing (Shop)**: Responsive grid, multi-parameter filtering (by Category, Price range slider, In Stock only, Deals, Featured, New arrivals), multi-criteria sorting (Newest, Price ascending/descending, Customer rating, Popularity), real-time search with instant autocomplete suggestions, pagination, and skeleton loading states.
 - **Product Detail**: Multi-image thumbnail gallery, live stock availability counter, variant selector (Size / Color / Edition), quantity limiter, Add to Cart with feedback, Buy Now instant checkout trigger, customer reviews tab with verified buyer badges, interactive "Write a Review" submission form, and related items carousel.
-- **Shopping Cart**: Real-time quantity adjustment, item removal, free shipping progress bar ($100 threshold), coupon validation (`WELCOME10`, `SHOPNEX20`, `SAVE50`), subtotal calculations, and persistent state.
+- **Shopping Cart**: Real-time quantity adjustment, item removal, free shipping progress bar ($100 threshold), coupon validation (`WELCOME10`, `SHALLSHOOP20`, `SAVE50`), subtotal calculations, and persistent state.
 - **Secure Checkout**: Multi-field validated customer contact and shipping address forms, order snapshot review, **Cash on Delivery (COD)** functional payment method, transparently labeled sandbox card gateway placeholder, server-calculated totals, and database transaction atomic order placement.
 - **Order Confirmation & Tracking**: Generated order identifier (`SNX-YYYYMMDD-XXXX`), 5-stage fulfillment timeline (Pending → Confirmed → Processing → Shipped → Delivered), itemized invoice receipt, and direct link to account dashboard.
 - **Customer Dashboard**: Profile overview, editable shipping and personal details, order history with detailed receipt modals, order cancellation with automatic stock restoration, wishlist grid, and password update.
@@ -146,18 +151,19 @@ npm run dev -- --host 127.0.0.1 --port 5173
 The database seed command (`python manage.py seed_db`) automatically provisions the following accounts:
 
 ### Admin Superuser
-- **Email**: `admin@shopnex.com`
+- **Email**: `dadmohammad2005@gmail.com`
 - **Password**: `Admin12345!`
-- **Access**: Full access to Django Admin (`http://127.0.0.1:8000/admin/`) to manage products, categories, stock, orders, coupons, reviews, and customer inquiries.
+- **Access**: Full access to Django Admin (`http://127.0.0.1:8000/admin/`) to manage store settings, products, categories, stock, orders, coupons, reviews, and customer inquiries.
 
 ### Demo Customer
-- **Email**: `customer@shopnex.com`
+- **Email**: `customer@shallshoop.com`
 - **Password**: `Customer12345!`
 - **Access**: Customer dashboard on the frontend (`http://127.0.0.1:5173/login`) with pre-configured shipping address and order history. (A 1-click **"Auto-fill"** button is also provided on the login page).
 
 ### Active Discount Coupons
 - `WELCOME10`: 10% discount on all orders.
-- `SHOPNEX20`: 20% discount on orders over $100.
+- `SHALLSHOOP20`: 20% discount on orders over $100.
+- `SHOPNEX20`: 20% discount on orders over $100 (kept for backwards compatibility).
 - `SAVE50`: $50 flat discount on orders over $250.
 
 ---
@@ -166,6 +172,8 @@ The database seed command (`python manage.py seed_db`) automatically provisions 
 
 | Method | Endpoint | Description | Auth Required |
 |---|---|---|---|
+| `GET` | `/api/settings/` | Retrieve dynamic store settings & branding | No |
+| `PATCH` | `/api/settings/` | Update store configuration dynamically | Staff / Admin |
 | `GET` | `/api/accounts/csrf/` | Retrieve CSRF cookie & token | No |
 | `POST` | `/api/accounts/register/` | Register new user & establish session | No |
 | `POST` | `/api/accounts/login/` | Sign in with email/username & password | No |

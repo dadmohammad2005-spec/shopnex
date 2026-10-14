@@ -102,4 +102,10 @@ export const contactService = {
   sendMessage: (data) => api.post('/contact/', data),
 };
 
+export const settingsService = {
+  getSettings: () => api.get('/settings/'),
+  updateSettings: (data) => api.patch('/settings/', data),
+};
+
 export default api;
+

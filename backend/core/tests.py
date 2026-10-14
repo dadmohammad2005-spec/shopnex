@@ -176,3 +176,30 @@ class ShopNexBackendTests(TestCase):
         # Verify cart is empty
         cart_response = self.client.get('/api/cart/')
         self.assertEqual(cart_response.data['total_items'], 0)
+
+    # 6. Site Settings Tests (shall_shoop dynamic store settings)
+    def test_get_site_settings(self):
+        response = self.client.get('/api/settings/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['site_name'], 'shall_shoop')
+        self.assertIn('brand_parts', response.data)
+        self.assertEqual(response.data['brand_parts']['first'], 'shall')
+        self.assertEqual(response.data['brand_parts']['second'], '_shoop')
+
+    def test_dynamic_site_settings_update(self):
+        self.user.is_staff = True
+        self.user.save()
+        self.client.force_authenticate(user=self.user)
+
+        update_response = self.client.patch('/api/settings/', {
+            'site_name': 'shall_shoop',
+            'site_tagline': 'Modern E-Commerce Store',
+        })
+        self.assertEqual(update_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(update_response.data['site_name'], 'shall_shoop')
+        self.assertEqual(update_response.data['site_tagline'], 'Modern E-Commerce Store')
+
+        self.client.force_authenticate(user=None)
+        get_response = self.client.get('/api/settings/')
+        self.assertEqual(get_response.data['site_tagline'], 'Modern E-Commerce Store')
+

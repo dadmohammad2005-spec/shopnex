@@ -1,6 +1,6 @@
-# ShopNex — Backend API Service
+# shall_shoop — Backend API Service
 
-ShopNex is an enterprise-grade Django REST Framework backend designed for modern, high-performance e-commerce platforms.
+shall_shoop is an enterprise-grade Django REST Framework backend designed for modern, high-performance e-commerce platforms with dynamic store branding and configurations.
 
 ## Architecture
 
@@ -11,6 +11,7 @@ ShopNex is an enterprise-grade Django REST Framework backend designed for modern
 
 ### Applications Structure
 
+- `core/`: Dynamic store settings (`SiteSetting` & `/api/settings/`), database seeding utility (`seed_db`), and integration test suite.
 - `accounts/`: User registration, session login, logout, profile update, and password changes.
 - `products/`: Product catalog, categories, gallery images, variants (size, color), and search suggestions.
 - `cart/`: Shopping cart, quantity updates, stock limit enforcement, and user session synchronization.
@@ -19,11 +20,14 @@ ShopNex is an enterprise-grade Django REST Framework backend designed for modern
 - `reviews/`: Product ratings (1-5 stars), text reviews, aggregate rating calculations, and verified buyer badges.
 - `wishlist/`: Saved customer favorite products.
 - `contact/`: Customer support contact inquiries.
-- `core/`: Database seeding utility (`seed_db`) and comprehensive integration test suite.
 
 ---
 
 ## REST API Endpoints
+
+### Store Settings (`/api/settings/`)
+- `GET /api/settings/`: Retrieve dynamic store configuration, branding, contact info, and policies.
+- `PATCH /api/settings/`: Update store configuration dynamically (Admin / Staff).
 
 ### Authentication (`/api/accounts/`)
 - `GET /api/accounts/csrf/`: Retrieve CSRF cookie and token.
@@ -109,8 +113,8 @@ ShopNex is an enterprise-grade Django REST Framework backend designed for modern
 
 ### Default Credentials
 - **Admin Panel (`http://127.0.0.1:8000/admin/`)**:
-  - Email: `admin@shopnex.com`
+  - Email: `dadmohammad2005@gmail.com`
   - Password: `Admin12345!`
 - **Demo Customer**:
-  - Email: `customer@shopnex.com`
+  - Email: `customer@shallshoop.com`
   - Password: `Customer12345!`

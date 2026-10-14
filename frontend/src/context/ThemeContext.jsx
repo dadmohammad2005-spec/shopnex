@@ -5,7 +5,7 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   // Default to 'dark' mode as requested!
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('shopnex_theme');
+    const saved = localStorage.getItem('shall_shoop_theme') || localStorage.getItem('shopnex_theme');
     return saved ? saved : 'dark';
   });
 
@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
       root.classList.remove('dark');
       root.style.colorScheme = 'light';
     }
-    localStorage.setItem('shopnex_theme', theme);
+    localStorage.setItem('shall_shoop_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

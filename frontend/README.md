@@ -1,6 +1,6 @@
-# ShopNex — Frontend Web Application
+# shall_shoop — Frontend Web Application
 
-ShopNex is a modern, responsive, high-performance e-commerce frontend built with React, Vite, and Tailwind CSS.
+shall_shoop is a modern, responsive, high-performance e-commerce frontend built with React, Vite, and Tailwind CSS with full dynamic store branding support.
 
 ## Architecture
 
@@ -10,6 +10,7 @@ ShopNex is a modern, responsive, high-performance e-commerce frontend built with
 - **Icons**: Lucide Icons
 - **HTTP Client**: Axios configured with central API interceptor, cross-origin credentials (`withCredentials: true`), and automatic Django CSRF cookie handling.
 - **State Management**: React Context architecture:
+  - `StoreContext`: Dynamic site settings, live store name (`shall_shoop`), two-tone brand typography, contact details, announcement bar, and policies.
   - `AuthContext`: Authentication lifecycle, session status, user profile, password change.
   - `CartContext`: Cart items, quantity updates, inventory limits, coupon codes, and server-side pricing.
   - `WishlistContext`: Real-time wishlist toggling and live counter badge.
@@ -38,6 +39,7 @@ frontend/
 │   │       ├── DealsSection.jsx
 │   │       └── Testimonials.jsx
 │   ├── context/
+│   │   ├── StoreContext.jsx
 │   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
 │   │   ├── WishlistContext.jsx

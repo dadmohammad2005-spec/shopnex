@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ShoppingBag, Lock, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useStore } from '../context/StoreContext';
 
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('redirect') || '/dashboard';
   const { login } = useAuth();
+  const { siteName, brandParts, address } = useStore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +26,7 @@ const Login = () => {
   };
 
   const fillDemoCustomer = () => {
-    setEmail('customer@shopnex.com');
+    setEmail('customer@shallshoop.com');
     setPassword('Customer12345!');
   };
 
@@ -35,14 +37,14 @@ const Login = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-3 group">
             <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-md border border-slate-700 bg-slate-950 flex items-center justify-center">
-              <img src="/logo.png" alt="ShopNex Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt={`${siteName} Logo`} className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-2xl font-black text-white tracking-tight leading-tight">
-                Shop<span className="text-brand-400">Nex</span>
+                {brandParts.first}<span className="text-brand-400">{brandParts.second}</span>
               </span>
               <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase -mt-0.5">
-                Quetta, Balochistan
+                {address}
               </span>
             </div>
           </Link>
@@ -54,7 +56,7 @@ const Login = () => {
         <div className="mb-6 p-3 bg-brand-950/50 border border-brand-800/80 rounded-2xl flex items-center justify-between text-xs">
           <div>
             <span className="font-bold text-brand-300 block">Instant Demo Access</span>
-            <span className="text-brand-400 text-[11px]">customer@shopnex.com</span>
+            <span className="text-brand-400 text-[11px]">customer@shallshoop.com</span>
           </div>
           <button
             type="button"

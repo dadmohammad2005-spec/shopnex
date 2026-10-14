@@ -13,11 +13,22 @@ import {
   Check,
 } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
+import { useStore } from '../../context/StoreContext';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const { showToast } = useToast();
+  const {
+    siteName,
+    brandParts,
+    description,
+    address,
+    contactPhone,
+    contactEmail,
+    copyright,
+    freeShippingThreshold,
+  } = useStore();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -26,7 +37,7 @@ const Footer = () => {
       return;
     }
     setSubscribed(true);
-    showToast('Thank you for subscribing to ShopNex updates!', 'success');
+    showToast(`Thank you for subscribing to ${siteName} updates!`, 'success');
     setEmail('');
   };
 
@@ -79,33 +90,33 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-4 group">
               <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md border border-slate-700 bg-slate-950 flex items-center justify-center">
-                <img src="/logo.png" alt="ShopNex Logo" className="w-full h-full object-cover" />
+                <img src="/logo.png" alt={`${siteName} Logo`} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black text-white tracking-tight">
-                  Shop<span className="text-brand-400">Nex</span>
+                  {brandParts.first}<span className="text-brand-400">{brandParts.second}</span>
                 </span>
                 <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase -mt-0.5">
-                  Quetta, Balochistan
+                  {address}
                 </span>
               </div>
             </Link>
             <p className="text-xs sm:text-sm text-slate-400 mb-6 max-w-sm leading-relaxed">
-              ShopNex curates premium international consumer electronics, designer apparel, artisan living goods, and active essentials for contemporary living.
+              {description}
             </p>
             <div className="flex flex-col gap-2.5 text-xs text-slate-400">
               <div className="flex items-center gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>Quetta, Balochistan, Pakistan</span>
+                <span>{address}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>+92 300 0000000 (24/7 Desk)</span>
+                <span>{contactPhone} (24/7 Desk)</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-brand-400 shrink-0" />
-                <a href="mailto:dadmohammad2005@gmail.com" className="hover:text-white transition-colors">
-                  dadmohammad2005@gmail.com
+                <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors">
+                  {contactEmail}
                 </a>
               </div>
             </div>
@@ -141,7 +152,7 @@ const Footer = () => {
             <ul className="space-y-2.5 text-xs text-slate-400 mb-6">
               <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
-              <li><Link to="/about" className="hover:text-white transition-colors">About ShopNex</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About {siteName}</Link></li>
             </ul>
 
             <h5 className="text-xs font-bold text-white mb-2">Join the VIP Newsletter</h5>
@@ -166,7 +177,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} ShopNex International Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {copyright}</p>
           <div className="flex items-center gap-4 text-slate-400">
             <span className="font-semibold text-slate-500">Supported Payments:</span>
             <span>Cash on Delivery</span>

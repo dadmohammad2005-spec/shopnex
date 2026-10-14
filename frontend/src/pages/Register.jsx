@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ShoppingBag, Lock, Mail, User, Phone, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useStore } from '../context/StoreContext';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Register = () => {
   const redirect = searchParams.get('redirect') || '/dashboard';
   const { register } = useAuth();
   const { showToast } = useToast();
+  const { siteName, brandParts, address } = useStore();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -48,14 +50,14 @@ const Register = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-3 group">
             <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-md border border-slate-700 bg-slate-950 flex items-center justify-center">
-              <img src="/logo.png" alt="ShopNex Logo" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt={`${siteName} Logo`} className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-2xl font-black text-white tracking-tight leading-tight">
-                Shop<span className="text-brand-400">Nex</span>
+                {brandParts.first}<span className="text-brand-400">{brandParts.second}</span>
               </span>
               <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase -mt-0.5">
-                Quetta, Balochistan
+                {address}
               </span>
             </div>
           </Link>

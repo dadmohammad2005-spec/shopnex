@@ -8,8 +8,10 @@ import Testimonials from '../components/home/Testimonials';
 import ProductCard from '../components/common/ProductCard';
 import SkeletonCard from '../components/common/SkeletonCard';
 import { productService } from '../services/api';
+import { useStore } from '../context/StoreContext';
 
 const Home = () => {
+  const { siteName } = useStore();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -117,7 +119,7 @@ const Home = () => {
                 Member Privilege
               </span>
               <h3 className="text-xl sm:text-2xl font-extrabold mt-1 text-white">
-                Join ShopNex Premier & Enjoy 10% Off Your Initial Order
+                Join {siteName} Premier & Enjoy 10% Off Your Initial Order
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
                 Use code <span className="font-bold underline decoration-amber-400 text-white">WELCOME10</span> at checkout for instant savings.

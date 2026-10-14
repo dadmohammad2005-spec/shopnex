@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Sparkles, Award, Globe, ArrowRight, HeartHandshake } from 'lucide-react';
+import { useStore } from '../context/StoreContext';
 
 const About = () => {
+  const { siteName } = useStore();
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-12 sm:py-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +18,7 @@ const About = () => {
             Redefining Contemporary E-Commerce Excellence
           </h1>
           <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-            ShopNex was founded on a simple conviction: luxury design, cutting-edge technology, and ethical craftsmanship should be universally accessible without compromise.
+            {siteName} was founded on a simple conviction: luxury design, cutting-edge technology, and ethical craftsmanship should be universally accessible without compromise.
           </p>
         </div>
 
@@ -57,7 +60,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-brand-400 mb-2 block">
-                The ShopNex Standard
+                The {siteName} Standard
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
                 Designed for Those Who Notice the Details
@@ -78,7 +81,7 @@ const About = () => {
             <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800 border border-slate-700/60 shadow-md">
               <img
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
-                alt="ShopNex Creative Team"
+                alt={`${siteName} Creative Team`}
                 className="w-full h-full object-cover"
               />
             </div>

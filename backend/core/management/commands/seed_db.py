@@ -5,13 +5,28 @@ from accounts.models import User
 from products.models import Category, Product, ProductImage, ProductVariant
 from coupons.models import Coupon
 from reviews.models import ProductReview
+from core.models import SiteSetting
 
 
 class Command(BaseCommand):
     help = 'Seeds database with realistic demo categories, products, reviews, coupons, and users'
 
     def handle(self, *args, **options):
-        self.stdout.write("Starting ShopNex database seeding...")
+        self.stdout.write("Starting shall_shoop database seeding...")
+
+        # 0. Site Setting (Dynamic store configuration)
+        site_setting = SiteSetting.get_settings()
+        site_setting.site_name = 'shall_shoop'
+        site_setting.site_tagline = 'Premium Modern E-Commerce'
+        site_setting.site_description = 'shall_shoop curates premium international consumer electronics, designer apparel, artisan living goods, and active essentials for contemporary living.'
+        site_setting.contact_email = 'dadmohammad2005@gmail.com'
+        site_setting.contact_phone = '+92 300 1234567'
+        site_setting.address = 'Quetta, Balochistan, Pakistan'
+        site_setting.announcement_text = 'Complimentary Worldwide Shipping over $100 • Use code WELCOME10 for 10% off'
+        site_setting.free_shipping_threshold = Decimal('100.00')
+        site_setting.footer_copyright = 'shall_shoop International Inc. All rights reserved.'
+        site_setting.save()
+        self.stdout.write(self.style.SUCCESS("[OK] Site settings initialized for: shall_shoop"))
 
         # 1. Superuser
         admin_user = User.objects.filter(username='admin').first()
@@ -44,24 +59,40 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("[OK] Admin user configured: dadmohammad2005@gmail.com / Admin12345!"))
 
         # 2. Demo Customer
-        demo_user, created = User.objects.get_or_create(
-            email='customer@shopnex.com',
-            defaults={
-                'username': 'alex_morgan',
-                'first_name': 'Alex',
-                'last_name': 'Morgan',
-                'phone_number': '+92 300 1234567',
-                'address': 'Gulshan Street',
-                'city': 'Quetta',
-                'state': 'Balochistan',
-                'postal_code': '87300',
-                'country': 'Pakistan',
-            }
-        )
-        if created or not demo_user.check_password('Customer12345!'):
+        demo_user = User.objects.filter(email='customer@shallshoop.com').first()
+        if not demo_user:
+            demo_user = User.objects.filter(email='customer@shopnex.com').first()
+        if not demo_user:
+            demo_user = User.objects.filter(username='alex_morgan').first()
+
+        if demo_user:
+            demo_user.email = 'customer@shallshoop.com'
+            demo_user.username = 'alex_morgan'
+            demo_user.first_name = 'Alex'
+            demo_user.last_name = 'Morgan'
+            demo_user.phone_number = '+92 300 1234567'
+            demo_user.address = 'Gulshan Street'
+            demo_user.city = 'Quetta'
+            demo_user.state = 'Balochistan'
+            demo_user.postal_code = '87300'
+            demo_user.country = 'Pakistan'
             demo_user.set_password('Customer12345!')
             demo_user.save()
-        self.stdout.write(self.style.SUCCESS("[OK] Demo customer configured: customer@shopnex.com / Customer12345!"))
+        else:
+            demo_user = User.objects.create_user(
+                username='alex_morgan',
+                email='customer@shallshoop.com',
+                password='Customer12345!',
+                first_name='Alex',
+                last_name='Morgan',
+                phone_number='+92 300 1234567',
+                address='Gulshan Street',
+                city='Quetta',
+                state='Balochistan',
+                postal_code='87300',
+                country='Pakistan',
+            )
+        self.stdout.write(self.style.SUCCESS("[OK] Demo customer configured: customer@shallshoop.com / Customer12345!"))
 
         # Secondary reviewer user
         reviewer_user, _ = User.objects.get_or_create(
@@ -585,6 +616,15 @@ class Command(BaseCommand):
                 'is_active': True,
             },
             {
+                'code': 'SHALLSHOOP20',
+                'discount_type': 'percent',
+                'discount_value': Decimal('20.00'),
+                'min_purchase_amount': Decimal('100.00'),
+                'max_discount_amount': Decimal('150.00'),
+                'max_uses': 500,
+                'is_active': True,
+            },
+            {
                 'code': 'SHOPNEX20',
                 'discount_type': 'percent',
                 'discount_value': Decimal('20.00'),
@@ -610,5 +650,5 @@ class Command(BaseCommand):
             )
         self.stdout.write(self.style.SUCCESS(f"[OK] Seeded {len(coupons_data)} promotional coupons."))
 
-        self.stdout.write(self.style.SUCCESS("[SUCCESS] ShopNex database seeding completed successfully!"))
+        self.stdout.write(self.style.SUCCESS("[SUCCESS] shall_shoop database seeding completed successfully!"))
 

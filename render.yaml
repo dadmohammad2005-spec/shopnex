@@ -1,4 +1,4 @@
-# Render Blueprint specification for ShopNex Full-Stack Application
+# Render Blueprint specification for shall_shoop Full-Stack Application
 # https://render.com/docs/blueprint-spec
 
 services:
@@ -6,7 +6,7 @@ services:
   # 1. Django REST Framework Backend Service (Free Web Service)
   # -------------------------------------------------------------
   - type: web
-    name: shopnex-backend
+    name: shall-shoop-backend
     runtime: python
     region: oregon
     plan: free
@@ -31,10 +31,8 @@ services:
   # 2. React + Vite Frontend Service (Free Static Site)
   # -------------------------------------------------------------
   - type: web
-    name: shopnex-frontend
+    name: shall-shoop-frontend
     runtime: static
-    region: oregon
-    plan: free
     rootDir: frontend
     buildCommand: "npm install && npm run build"
     staticPublishPath: "dist"
@@ -44,5 +42,5 @@ services:
         destination: "/index.html"
     envVars:
       - key: VITE_API_BASE_URL
-        # Set this to your backend service URL, e.g. https://shopnex-backend.onrender.com/api
+        # Set this to your backend service URL, e.g. https://shall-shoop-backend.onrender.com/api
         sync: false
